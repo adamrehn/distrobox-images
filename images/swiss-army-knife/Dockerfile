@@ -20,6 +20,9 @@ ENV PATH="$PATH:/usr/bin/vendor_perl"
 # Configure git to disable automatic line ending conversion
 RUN git config --system core.autocrlf false
 
+# Configure git to use the libsecret credential helper by default
+RUN git config --system credential.helper /usr/lib/git-core/git-credential-libsecret
+
 # Export the binaries for ExifTool
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},exiftool"
 
