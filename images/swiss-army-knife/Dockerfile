@@ -8,6 +8,7 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 		git \
 		graphviz \
 		imagemagick \
+		libsecret \
 		pandoc-cli \
 		pdf2svg \
 		perl-image-exiftool \
@@ -15,6 +16,9 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 
 # Add the directory containing the ExifTool script to the PATH
 ENV PATH="$PATH:/usr/bin/vendor_perl"
+
+# Configure git to disable automatic line ending conversion
+RUN git config --system core.autocrlf false
 
 # Export the binaries for ExifTool
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},exiftool"
