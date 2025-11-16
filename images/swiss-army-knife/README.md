@@ -14,12 +14,10 @@ This container image encapsulates a variety of command-line tools for developmen
 - [Poppler utilities](https://poppler.freedesktop.org/)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 
-To get started using the image, [build all of the container images in this repository](../../README.md#building-the-images) and then run the following commands:
+To get started using the image, [build all of the container images in this repository](../../README.md#building-the-images) and then run the following command **from the root of the repository**:
 
 ```bash
-# Create a Distrobox container using the Swiss Army Knife image
-distrobox create --name 'swiss-army-knife' --image 'adamrehn/distrobox-swiss-army-knife:latest'
-
-# Export the binaries from the container for use from the host system
-distrobox enter 'swiss-army-knife' -- apply-exports.py
+# Create a Distrobox container using the Swiss Army Knife image, and
+# export the binaries from the container for use on the host system
+distrobox assemble create --file 'manifests/swiss-army-knife.ini'
 ```
