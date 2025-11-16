@@ -48,15 +48,12 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 		vulkan-intel \
 		vulkan-radeon
 
-# Install Python so we can use it to run our export management script
+# Install Python so we can use it to run our export management scripts
 RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 	pacman -Syu --needed --noconfirm \
 		python
 
-# Copy our export management Python script into the image
-COPY common/update-exports.py /usr/local/bin/distrobox-update-exports
-RUN chmod +x /usr/local/bin/distrobox-update-exports
-
-# Initialise our lists of exported applications and binaries
-ENV CONTAINER_EXPORTED_APPS=""
-ENV CONTAINER_EXPORTED_BINS=""
+# Copy our export management Python scripts into the image
+COPY common/*.py /usr/local/bin/
+RUN chmod +x /usr/local/bin/apply-exports.py
+RUN chmod +x /usr/local/bin/save-exports.py

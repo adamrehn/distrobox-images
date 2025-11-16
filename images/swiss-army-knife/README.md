@@ -21,5 +21,5 @@ To get started using the image, [build all of the container images in this repos
 distrobox create --name 'swiss-army-knife' --image 'adamrehn/distrobox-swiss-army-knife:latest'
 
 # Export the binaries from the container for use from the host system
-distrobox enter 'swiss-army-knife' -- distrobox-update-exports
+distrobox enter 'swiss-army-knife' -- apply-exports.py
 ```
