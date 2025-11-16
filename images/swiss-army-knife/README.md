@@ -2,6 +2,7 @@
 
 This container image encapsulates a variety of command-line tools for development and productivity use. The following tools are currently included:
 
+- [ack](https://beyondgrep.com/)
 - [ExifTool](https://exiftool.org/)
 - [FFmpeg](https://www.ffmpeg.org/)
 - [GDAL](https://gdal.org/)
@@ -11,6 +12,7 @@ This container image encapsulates a variety of command-line tools for developmen
 - [Pandoc](https://pandoc.org/)
 - [pdf2svg](https://github.com/dawbarton/pdf2svg)
 - [Poppler utilities](https://poppler.freedesktop.org/)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 To get started using the image, [build all of the container images in this repository](../../README.md#building-the-images) and then run the following commands:
 

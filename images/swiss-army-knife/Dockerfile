@@ -1,8 +1,9 @@
 FROM adamrehn/distrobox-base-arch:latest
 
-# Install our various command-line tools
+# Install our various command-line tools, and cpanminus for installing ack
 RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 	pacman -Syu --needed --noconfirm \
+		cpanminus \
 		ffmpeg \
 		gdal \
 		git \
@@ -12,16 +13,23 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 		pandoc-cli \
 		pdf2svg \
 		perl-image-exiftool \
-		poppler
+		poppler \
+		ripgrep
 
-# Add the directory containing the ExifTool script to the PATH
-ENV PATH="$PATH:/usr/bin/vendor_perl"
+# Install ack
+RUN /usr/bin/vendor_perl/cpanm --notest --install 'App::Ack'
+
+# Add the directories containing ack and ExifTool to the PATH
+ENV PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl"
 
 # Configure git to disable automatic line ending conversion
 RUN git config --system core.autocrlf false
 
 # Configure git to use the libsecret credential helper by default
 RUN git config --system credential.helper /usr/lib/git-core/git-credential-libsecret
+
+# Export the binaries for ack
+ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},ack"
 
 # Export the binaries for ExifTool
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},exiftool"
@@ -146,3 +154,6 @@ ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},pdftoppm"
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},pdftops"
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},pdftotext"
 ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},pdfunite"
+
+# Export the binaries for ripgrep
+ENV CONTAINER_EXPORTED_BINS="${CONTAINER_EXPORTED_BINS},rg"
