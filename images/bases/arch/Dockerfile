@@ -1,7 +1,7 @@
 FROM quay.io/toolbx/arch-toolbox:latest
 
 # Preinstall the base packages needed by Distrobox, to save time when running `distrobox-init`:
-# <https://github.com/89luca89/distrobox/blob/1.8.2.1/distrobox-init#L1333-L1378>
+# <https://github.com/89luca89/distrobox/blob/1.8.2.1/distrobox-init#L1333-L1392>
 RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 	pacman -Syu --needed --noconfirm \
 		bash \
@@ -11,6 +11,7 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 		diffutils \
 		findutils \
 		glibc \
+		glibc-locales \
 		gnupg \
 		iputils \
 		inetutils \
