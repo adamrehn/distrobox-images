@@ -1,6 +1,6 @@
 name: Deploy container images and manifests
 
-# Only run this workflow when the YAML file itself changes or files change in the "common" or "images" folders
+# Only run this workflow when the YAML file itself changes or files change that impact the output
 on:
   push:
     branches: [main]
@@ -8,6 +8,8 @@ on:
       - ".github/workflows/deploy.yml"
       - "common/**"
       - "images/**"
+      - "manifests/**"
+      - "build.sh"
 
 jobs:
   
