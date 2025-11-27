@@ -1,3 +1,4 @@
+.github/
 manifests/
 apply-manifests.py
 build.sh
