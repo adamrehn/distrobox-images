@@ -9,6 +9,7 @@ on:
       - "common/**"
       - "images/**"
       - "manifests/**"
+      - ".dockerignore"
       - "build.sh"
 
 jobs:
