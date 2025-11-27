@@ -1,0 +1,19 @@
+{
+	"name": "distrobox-manifests",
+	"compatibility_date": "2025-11-27",
+	"assets": {
+		"directory": "."
+	},
+	
+	// Disable the workers.dev URL and preview URLs
+	"workers_dev": false,
+	"preview_urls": false,
+	
+	// Configure our custom domain
+	"routes": [
+		{
+			"pattern": "distrobox-manifests.adamrehn.com",
+			"custom_domain": true
+		}
+	]
+}
