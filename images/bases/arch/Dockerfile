@@ -55,6 +55,4 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 
 # Copy our export management Python scripts into the image
 COPY common/*.py /usr/local/bin/
-RUN chmod +x /usr/local/bin/apply-exports.py
-RUN chmod +x /usr/local/bin/generate-manifest.py
-RUN chmod +x /usr/local/bin/save-exports.py
+RUN chmod +x /usr/local/bin/*.py
