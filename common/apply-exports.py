@@ -37,7 +37,7 @@ def list_exported(export_type, container_id):
 			
 			# Extract the filename of the export
 			exported_path = Path(components[1].strip())
-			name = exported_path.stem
+			name = exported_path.name
 			
 			# Application .desktop files are prefixed with the container ID, so remove it
 			if exported_path.suffix == '.desktop':
@@ -80,9 +80,9 @@ for binary, exported_path in existing_bins.items():
 		exported_path.unlink()
 
 # Create or update the exports for each of our exported applications
-for application in exports['applications']:
-	action = 'Updating' if application in existing_apps else 'Creating'
-	log(f'\n{ action } export for application "{ application }"...')
+for name, application in exports['applications'].items():
+	action = 'Updating' if name in existing_apps else 'Creating'
+	log(f'\n{ action } export for application "{ name }"...')
 	run(['distrobox-export', '--app', application])
 
 # Create or update the exports for each of our exported binaries

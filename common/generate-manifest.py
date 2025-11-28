@@ -28,7 +28,7 @@ manifest = '\n'.join(
 		'replace=true',
 	] +
 	extra_options +
-	[f'exported_apps="{ app }"' for app in exports['applications']] +
+	[f'exported_apps="{ app }"' for app in exports['applications'].values()] +
 	[f'exported_bins="{ bin }"' for bin in exports['binaries'].values()] +
 	['']
 )
