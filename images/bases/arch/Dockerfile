@@ -48,11 +48,20 @@ RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 		vulkan-intel \
 		vulkan-radeon
 
-# Install Python so we can use it to run our export management scripts
+# Install Python so we can use it to run our export management scripts and `host-spawn` wrapper script
 RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
 	pacman -Syu --needed --noconfirm \
 		python
 
-# Copy our export management Python scripts into the image
+# Preinstall the `host-spawn` tool used by `distrobox-host-exec`
+ARG HOST_SPAWN_VERSION="v1.6.2"
+RUN mkdir -p /opt/real-host-spawn && \
+	curl -fSL "https://github.com/1player/host-spawn/releases/download/$HOST_SPAWN_VERSION/host-spawn-x86_64" -o /opt/real-host-spawn/host-spawn && \
+	chmod +x /opt/real-host-spawn/host-spawn
+
+# Copy our Python scripts into the image
 COPY common/*.py /usr/local/bin/
 RUN chmod +x /usr/local/bin/*.py
+
+# Name our `host-spawn` wrapper script so it will be used automatically by `distrobox-host-exec`
+RUN ln -s /usr/local/bin/host-spawn-wrapper.py /usr/local/bin/host-spawn
