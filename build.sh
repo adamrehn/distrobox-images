@@ -36,6 +36,9 @@ generateManifest 'swiss-army-knife' 'adamrehn/distrobox-swiss-army-knife:latest'
 
 # Determine whether we are pushing the images to Docker Hub
 if [[ $* == *--push-images* ]]; then
+	docker push 'adamrehn/distrobox-base-arch:latest'
+	docker push 'adamrehn/distrobox-base-ubuntu:24.04'
+	
 	docker push 'adamrehn/distrobox-klogg:latest'
 	docker push 'adamrehn/distrobox-swiss-army-knife:latest'
 fi
