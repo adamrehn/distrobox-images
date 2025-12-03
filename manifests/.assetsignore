@@ -1,6 +1,7 @@
 .wrangler/
 node_modules/
 .gitignore
+generate-index.py
 package.json
 package-lock.json
 wrangler.jsonc

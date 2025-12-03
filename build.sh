@@ -34,6 +34,9 @@ rm -f "$SCRIPT_DIR/manifests/"*.ini
 generateManifest 'klogg' 'adamrehn/distrobox-klogg:latest'
 generateManifest 'swiss-army-knife' 'adamrehn/distrobox-swiss-army-knife:latest'
 
+# Generate the index HTML for our list of manifests
+docker run --rm "-v$SCRIPT_DIR/manifests:/hostdir" -w /hostdir -u `id -u`:`id -g` 'adamrehn/distrobox-base-ubuntu:24.04' python3 /hostdir/generate-index.py
+
 # Determine whether we are pushing the images to Docker Hub
 if [[ $* == *--push-images* ]]; then
 	docker push 'adamrehn/distrobox-base-arch:latest'
