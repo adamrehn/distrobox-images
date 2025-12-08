@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Preinstall the base packages needed by Distrobox, to save time when running `distrobox-init`:
 # <https://github.com/89luca89/distrobox/blob/1.8.2.1/distrobox-init#L786-L867>
 RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
 	apt-get update && apt-get install -y --no-install-recommends \
 		apt-utils \
 		bash \
@@ -64,7 +64,7 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
 		zip
 
 # Install Python so we can use it to run our export management scripts and `host-spawn` wrapper script
-RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
 	apt-get update && apt-get install -y --no-install-recommends \
 		python3
 
