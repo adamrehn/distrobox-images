@@ -26,6 +26,7 @@ manifest = '\n'.join(
 		f'[{ args.name }]',
 		f'image="{ args.image }"',
 		'replace=true',
+		'entry=false',
 	] +
 	extra_options +
 	[f'exported_apps="{ app }"' for app in exports['applications'].values()] +
