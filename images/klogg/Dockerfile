@@ -7,6 +7,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
 	apt install -y /tmp/klogg.deb && \
 	rm /tmp/klogg.deb
 
+# Configure klogg's .desktop file to ensure the icon will display correctly when exported to the host
+# (Note: Distrobox will prefix icon paths with `/run/host` if they're in a standard location, so we symlink the icon elsewhere to avoid this)
+RUN ln -s /usr/share/icons/hicolor/scalable/apps/klogg.svg /opt/klogg.svg && \
+	sed -i 's|Icon=klogg|Icon=/opt/klogg.svg\nStartupWMClass=klogg|' /usr/share/applications/klogg.desktop
+
 # Configure the container's exports
 RUN <<'EOT' bash
 	EXPORTS=(
