@@ -25,4 +25,4 @@ To build all of the container images, run the following command from the root of
 
 ## Legal
 
-Copyright &copy; 2025, Adam Rehn. Licensed under the MIT License, see the file [LICENSE](./LICENSE) for details.
+Copyright &copy; 2025 - 2026, Adam Rehn. Licensed under the MIT License, see the file [LICENSE](./LICENSE) for details.

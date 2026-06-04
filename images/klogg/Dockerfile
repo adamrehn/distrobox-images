@@ -1,4 +1,4 @@
-FROM adamrehn/distrobox-base-ubuntu:24.04
+FROM adamrehn/distrobox-base-ubuntu:26.04
 
 # Install klogg
 ARG KLOGG_DEB_URL="https://github.com/variar/klogg/releases/download/v22.06/klogg-22.06.0.1289-Linux-amd64-jammy.deb"

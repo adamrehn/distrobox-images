@@ -1,10 +1,11 @@
-FROM quay.io/toolbx/ubuntu-toolbox:24.04
+FROM quay.io/toolbx/ubuntu-toolbox:26.04
 
 # Disable interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Preinstall the base packages needed by Distrobox, to save time when running `distrobox-init`:
-# <https://github.com/89luca89/distrobox/blob/1.8.2.1/distrobox-init#L786-L867>
+# <https://github.com/89luca89/distrobox/blob/1.8.2.5/distrobox-init#L794-L854>
+# (Note that we exclude the packages that don't exist under Ubuntu 26.04: libegl1-mesa, libgl1-mesa-glx, libvte-common)
 RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
 	apt-get update && apt-get install -y --no-install-recommends \
@@ -35,7 +36,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
 		libnss-mdns \
 		libnss-myhostname \
 		libvte-2.9*-common \
-		libvte-common \
 		libvulkan1 \
 		locales \
 		lsof \

@@ -22,12 +22,12 @@ function generateManifest() {
 
 
 # Build our base images
-docker build --progress=plain -t 'adamrehn/distrobox-base-arch:latest' -f "$SCRIPT_DIR/images/bases/arch/Dockerfile" "$SCRIPT_DIR"
-docker build --progress=plain -t 'adamrehn/distrobox-base-ubuntu:24.04' -f "$SCRIPT_DIR/images/bases/ubuntu2404/Dockerfile" "$SCRIPT_DIR"
+docker buildx build --pull --progress=plain -t 'adamrehn/distrobox-base-arch:latest' -f "$SCRIPT_DIR/images/bases/arch/Dockerfile" "$SCRIPT_DIR"
+docker buildx build --pull --progress=plain -t 'adamrehn/distrobox-base-ubuntu:26.04' -f "$SCRIPT_DIR/images/bases/ubuntu2604/Dockerfile" "$SCRIPT_DIR"
 
 # Build our Distrobox images
-docker build --progress=plain -t 'adamrehn/distrobox-klogg:latest' "$SCRIPT_DIR/images/klogg"
-docker build --progress=plain -t 'adamrehn/distrobox-swiss-army-knife:latest' "$SCRIPT_DIR/images/swiss-army-knife"
+docker buildx build --progress=plain -t 'adamrehn/distrobox-klogg:latest' "$SCRIPT_DIR/images/klogg"
+docker buildx build --progress=plain -t 'adamrehn/distrobox-swiss-army-knife:latest' "$SCRIPT_DIR/images/swiss-army-knife"
 
 # Generate the manifests for our Distrobox images
 rm -f "$SCRIPT_DIR/manifests/"*.ini
@@ -35,12 +35,12 @@ generateManifest 'klogg' 'adamrehn/distrobox-klogg:latest'
 generateManifest 'swiss-army-knife' 'adamrehn/distrobox-swiss-army-knife:latest'
 
 # Generate the index HTML for our list of manifests
-docker run --rm "-v$SCRIPT_DIR/manifests:/hostdir" -w /hostdir -u `id -u`:`id -g` 'adamrehn/distrobox-base-ubuntu:24.04' python3 /hostdir/generate-index.py
+docker run --rm "-v$SCRIPT_DIR/manifests:/hostdir" -w /hostdir -u `id -u`:`id -g` 'adamrehn/distrobox-base-ubuntu:26.04' python3 /hostdir/generate-index.py
 
 # Determine whether we are pushing the images to Docker Hub
 if [[ $* == *--push-images* ]]; then
 	docker push 'adamrehn/distrobox-base-arch:latest'
-	docker push 'adamrehn/distrobox-base-ubuntu:24.04'
+	docker push 'adamrehn/distrobox-base-ubuntu:26.04'
 	
 	docker push 'adamrehn/distrobox-klogg:latest'
 	docker push 'adamrehn/distrobox-swiss-army-knife:latest'
