@@ -20,4 +20,6 @@ command_exists = lambda binary: run(
 # Check whether each of the specified commands exists on the host system, and symlink the commands that do exist
 for command in sys.argv[1:]:
 	if command_exists(command):
-		run(['ln', '-s', '/usr/bin/distrobox-host-exec', f'/usr/bin/{command}'])
+		symlink = Path('/usr/bin') / command
+		if not symlink.exists():
+			run(['ln', '-s', '/usr/bin/distrobox-host-exec', symlink])
