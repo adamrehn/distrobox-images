@@ -5,10 +5,11 @@ RUN mkdir -pm755 /etc/apt/keyrings
 RUN wget -O - 'https://dl.winehq.org/wine-builds/winehq.key' | gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key -
 RUN wget -NP /etc/apt/sources.list.d/ 'https://dl.winehq.org/wine-builds/ubuntu/dists/resolute/winehq-resolute.sources'
 
-# Install the latest stable version of Wine (currently 11.0), along with Xvfb
+# Install the latest stable version of Wine (currently 11.0), along with `x11-xserver-utils` (for xrdb) and Xvfb
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
 	apt-get update && apt-get install -y --install-recommends \
 		winehq-stable \
+		x11-xserver-utils \
 		xvfb
 
 # Create a Wine prefix and perform first-run setup

@@ -28,6 +28,6 @@ reconstructed = Path(directory) / executable
 # (If we don't do this then the desktop file will fail to launch once it's been exported by Distrobox)
 lines = remove_field(lines, 'Path=')
 
-# Generate a new `Exec=` line and write the lines back to the desktop file
-lines.append(f"Exec=wine '{reconstructed}'")
+# Generate a new `Exec=` line that runs the executable with our DPI scaling wrapper script, and write the lines back to the desktop file
+lines.append(f"Exec=wine-wrapper.py '{reconstructed}'")
 args.shortcut.write_text('\n'.join(lines), 'utf-8')
