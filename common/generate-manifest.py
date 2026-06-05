@@ -15,6 +15,12 @@ exports = {}
 with open('/container-exports.json', 'r') as infile:
 	exports = json.load(infile)
 
+# Retrieve the list of init hooks (if any)
+init_hooks = []
+init_hooks_file = Path('/container-init-hooks.txt')
+if init_hooks_file.exists():
+	init_hooks = init_hooks_file.read_text('utf-8').splitlines()
+
 # Verify that our exports are well-formed
 if 'applications' not in exports or 'binaries' not in exports or not isinstance(exports['binaries'], dict):
 	raise RuntimeError('the container exports JSON file is malformed')
@@ -29,6 +35,7 @@ manifest = '\n'.join(
 		'entry=false',
 	] +
 	extra_options +
+	[f'init_hooks={ command }' for command in init_hooks] +
 	[f'exported_apps="{ app }"' for app in exports['applications'].values()] +
 	[f'exported_bins="{ bin }"' for bin in exports['binaries'].values()] +
 	['']

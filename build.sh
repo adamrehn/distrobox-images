@@ -24,13 +24,16 @@ function generateManifest() {
 # Build our base images
 docker buildx build --pull --progress=plain -t 'adamrehn/distrobox-base-arch:latest' -f "$SCRIPT_DIR/images/bases/arch/Dockerfile" "$SCRIPT_DIR"
 docker buildx build --pull --progress=plain -t 'adamrehn/distrobox-base-ubuntu:26.04' -f "$SCRIPT_DIR/images/bases/ubuntu2604/Dockerfile" "$SCRIPT_DIR"
+docker buildx build --progress=plain -t 'adamrehn/distrobox-base-wine:ubuntu26.04' -f "$SCRIPT_DIR/images/bases/ubuntu2604-wine/Dockerfile" "$SCRIPT_DIR"
 
 # Build our Distrobox images
+docker buildx build --progress=plain -t 'adamrehn/distrobox-foobar2000:latest' "$SCRIPT_DIR/images/foobar2000"
 docker buildx build --progress=plain -t 'adamrehn/distrobox-klogg:latest' "$SCRIPT_DIR/images/klogg"
 docker buildx build --progress=plain -t 'adamrehn/distrobox-swiss-army-knife:latest' "$SCRIPT_DIR/images/swiss-army-knife"
 
 # Generate the manifests for our Distrobox images
 rm -f "$SCRIPT_DIR/manifests/"*.ini
+generateManifest 'foobar2000' 'adamrehn/distrobox-foobar2000:latest'
 generateManifest 'klogg' 'adamrehn/distrobox-klogg:latest'
 generateManifest 'swiss-army-knife' 'adamrehn/distrobox-swiss-army-knife:latest'
 
@@ -41,7 +44,9 @@ docker run --rm "-v$SCRIPT_DIR/manifests:/hostdir" -w /hostdir -u `id -u`:`id -g
 if [[ $* == *--push-images* ]]; then
 	docker push 'adamrehn/distrobox-base-arch:latest'
 	docker push 'adamrehn/distrobox-base-ubuntu:26.04'
+	docker push 'adamrehn/distrobox-base-wine:ubuntu26.04'
 	
+	docker push 'adamrehn/distrobox-foobar2000:latest'
 	docker push 'adamrehn/distrobox-klogg:latest'
 	docker push 'adamrehn/distrobox-swiss-army-knife:latest'
 fi
