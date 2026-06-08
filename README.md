@@ -8,6 +8,8 @@ The following container images are currently available:
 
 - [**klogg**](./images/klogg/): encapsulates the [klogg](https://klogg.filimonov.dev/) log file viewer.
 
+- [**pe-bear**](./images/pe-bear/): encapsulates the [PE-Bear](https://github.com/hasherezade/pe-bear) binary analysis tool for Windows [Portable Executable (PE)](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format) files.
+
 - [**swiss-army-knife**](./images/swiss-army-knife/): encapsulates a variety of command-line tools for development and productivity use.
 
 
