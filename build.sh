@@ -29,12 +29,14 @@ docker buildx build --progress=plain -t 'adamrehn/distrobox-base-wine:ubuntu26.0
 # Build our Distrobox images
 docker buildx build --progress=plain -t 'adamrehn/distrobox-foobar2000:latest' "$SCRIPT_DIR/images/foobar2000"
 docker buildx build --progress=plain -t 'adamrehn/distrobox-klogg:latest' "$SCRIPT_DIR/images/klogg"
+docker buildx build --progress=plain -t 'adamrehn/distrobox-pe-bear:latest' "$SCRIPT_DIR/images/pe-bear"
 docker buildx build --progress=plain -t 'adamrehn/distrobox-swiss-army-knife:latest' "$SCRIPT_DIR/images/swiss-army-knife"
 
 # Generate the manifests for our Distrobox images
 rm -f "$SCRIPT_DIR/manifests/"*.ini
 generateManifest 'foobar2000' 'adamrehn/distrobox-foobar2000:latest'
 generateManifest 'klogg' 'adamrehn/distrobox-klogg:latest'
+generateManifest 'pe-bear' 'adamrehn/distrobox-pe-bear:latest'
 generateManifest 'swiss-army-knife' 'adamrehn/distrobox-swiss-army-knife:latest'
 
 # Generate the index HTML for our list of manifests
@@ -48,5 +50,6 @@ if [[ $* == *--push-images* ]]; then
 	
 	docker push 'adamrehn/distrobox-foobar2000:latest'
 	docker push 'adamrehn/distrobox-klogg:latest'
+	docker push 'adamrehn/distrobox-pe-bear:latest'
 	docker push 'adamrehn/distrobox-swiss-army-knife:latest'
 fi
