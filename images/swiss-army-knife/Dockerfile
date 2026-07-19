@@ -101,7 +101,6 @@ RUN <<'EOT' bash
 		ccomps
 		circo
 		cluster
-		diffimg
 		dijkstra
 		dot
 		dot2gxl
